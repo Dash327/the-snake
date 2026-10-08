@@ -48,7 +48,7 @@ def handle_keys(key, game_object):
 class GameObject:
     """Базовый класс для всех игровых объектов."""
 
-    def __init__(self, color=(0,0,0), border_color=BORDER_COLOR):
+    def __init__(self, color=(0, 0, 0), border_color=BORDER_COLOR):
         """Инициализирует базовые атрибуты: позицию и цвет."""
         self.position = SCREEN_CENTER
         self.body_color = color
