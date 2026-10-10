@@ -45,17 +45,21 @@ def handle_keys(key, game_object):
         game_object.next_direction = RIGHT
 
 
-def game_loop(snake, apple):
-    """Основной игровой цикл: обработка событий, движение, отрисовка."""
+def process_events(snake):
+    """Обрабатывает все события клавиатуры."""
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
+        elif event.type == pg.KEYDOWN:
+            handle_keys(event.key, snake)
+
+
+def play(snake, apple):
+    """Игровой цикл: обработка событий, движение, отрисовка."""
     while True:
         clock.tick(SPEED)
-
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-                sys.exit()
-            elif event.type == pg.KEYDOWN:
-                handle_keys(event.key, snake)
+        process_events(snake)
 
         snake.update_direction()
         snake.move()
@@ -70,7 +74,6 @@ def game_loop(snake, apple):
 
         snake.draw()
         apple.draw()
-
         pg.display.update()
 
 
@@ -194,8 +197,7 @@ def main():
     pg.init()
     snake = Snake()
     apple = Apple(occupied_positions=snake.positions)
-
-    game_loop(snake, apple)
+    play(snake, apple)
 
 
 if __name__ == '__main__':
